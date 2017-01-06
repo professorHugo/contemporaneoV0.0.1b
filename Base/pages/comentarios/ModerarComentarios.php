@@ -1,0 +1,1 @@
+Mostar os comentários para moderar

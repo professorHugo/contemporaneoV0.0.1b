@@ -1,0 +1,143 @@
+.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav {
+    background: #17458f;
+    z-index: 200;
+    position: relative;
+    width: 20%;
+    font-size: 1em;
+    float: left;
+}
+
+li {
+    display: block;
+    width: 100%;
+    margin: 1em 2em 1em 0;
+}
+
+a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+a:hover {
+    color: red;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.foto {
+    width: 80%;
+    float: right;
+}
+
+/*Media Queries*/
+@media only screen and (max-width: 1366px) {
+    body{
+        max-height: 700px;
+    }
+    .wrap {
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .nav {
+        width: 295px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+    .nav ul {
+        padding: 0;
+        margin: 0;
+        background: #17458f;
+    }		
+
+    li {
+        margin: 0;
+        padding: 0;
+        display: block;
+    }
+
+    li a {
+        padding: 0.5em 0 0.5em 0;
+        display: block;
+        color: #FFF;
+    }
+
+
+
+    .nav-toggle {
+        position: absolute;
+        top: 0;
+        right: -73px;
+        color: #FFF;
+        cursor: pointer;
+        min-width: 70px;
+        min-height: 20px;
+        z-index: 1000;
+        display: block;
+        background: #17458f;
+        padding: 20px 20px 20px 25px;
+        text-align: left;
+    }
+    .nav-toggle span{
+        font-size: 2em;
+    }
+    .background{
+        width: 100%;
+        min-height: 100%;
+        background: #000;
+        opacity:1;
+        position:fixed!important;
+        top:0;
+        left:0;
+        z-index: 999;
+        transition:1s;
+        padding-top: 80px;
+    }
+    .no-background{
+        width: 100%;
+        height: 100%;
+        background: none;
+        opacity:1;
+        position:fixed;
+        top:0;
+        left:0;
+        z-index: 999!important;
+        transition:1s;
+        padding-top: 80px;
+    }
+    .itens-com-background{
+        padding-top: 72px;
+        z-index: 998;
+        opacity: 0.3;
+        padding-top: 80px;
+    }
+    #base{
+        
+    }
+    .listaNav li a{
+        padding: 25px;
+        font-size: 1.2em;
+    }
+    .listaNav li:hover a{
+        background: #269abc;
+        color:#FFF;
+    }
+    .listaNav li a span{
+        font-size: 1.4em;
+    }
+    .foto {
+        width: 100%;
+        position: relative;
+        float: none;
+    }
+}
