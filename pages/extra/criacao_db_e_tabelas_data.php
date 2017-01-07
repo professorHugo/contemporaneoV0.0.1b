@@ -22,33 +22,37 @@ if ($dbExists) {
     $conexaoDbDiaAula = mysql_connect(HOST, USER, PASS);
     mysql_select_db($DbDiaAula, $conexaoDbDiaAula);
 
-    //Criar a tabela no DB do dia
-    $QueryCriarTabelaData = "CREATE TABLE `$tabelaDataAgendamento`(id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, matricula_aluno int, nome_aluno varchar(255),sala varchar(255),prof varchar(255),entrada float,saida float,materia varchar(255),qtd_hora float, valor float)ENGINE=INNODB;";
-    echo "Verificando a tabela de aula do dia: <b>" . $tabelaDataAgendamento . "</b>... <br>";
-    $ExeQrCriarTabelaData = mysql_query($QueryCriarTabelaData);
-    if ($ExeQrCriarTabelaData) {
-        echo "Tabela: " . $tabelaDataAgendamento . " criada com sucesso!<br>";
-        echo "Verificando as Tabelas com os horários das salas de aula para o dia: " . $DbDiaAula . "... <br>";
-    } else {
-        echo "Tabela: <b>" . $tabelaDataAgendamento . "</b> já existe.<br>";
-        echo "Verificando as Tabelas com os horários das salas de aula para o dia: <b>" . $tabelaDataAgendamento . "</b>... <br>";
-    }
-
     //Verificar se as tabelas das salas de aula já existem
     $VerificarTabelasSalas = mysql_query("SHOW TABLES LIKE '$tabelaDataAgendamento'");
     if (mysql_num_rows($VerificarTabelasSalas) > 0) {
         echo "Tabelas com horários para a <b>" . $salaDeAula . "</b> já existem<br>";
         echo "Inserindo Registro da aula no banco de dados <b>" . $tabelaDataAgendamento . "</b>...<br>";
     } else {
+        //Criar a tabela no DB do dia
+        $ExeQrCriarTabelaData = mysql_query("CREATE TABLE `$tabelaDataAgendamento` (id int(11) NOT NULL AUTO_INCREMENT,matricula_aluno int(11) DEFAULT NULL,nome_aluno varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,data varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,sala varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,prof varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,entrada varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,saida varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,materia varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,qtd_hora float NOT NULL,valor float NOT NULL,pagamento varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,PRIMARY KEY (id)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci");
+        echo "Verificando a tabela de aula do dia: <b>" . $tabelaDataAgendamento . "</b>... <br>";
+        if ($ExeQrCriarTabelaData) {
+            echo "Tabela: " . $tabelaDataAgendamento . " criada com sucesso!<br>";
+            echo "Verificando as Tabelas com os horários das salas de aula para o dia: " . $DbDiaAula . "... <br>";
+        } else {
+            echo "Tabela: <b>" . $tabelaDataAgendamento . "</b> já existe.<br>";
+            echo "Verificando as Tabelas com os horários das salas de aula para o dia: <b>" . $tabelaDataAgendamento . "</b>... <br>";
+        }
         //Criar as tabelas das salas de aula
         include 'pages/extra/CriarTabelasDasSalas.php';
         //Terminado a criação Inserir os registros
         include 'pages/extra/InserirRegistrosDasSalas.php';
+        //Inserir o registro na tabela criada
+        $inserirTabelaData = mysql_query("INSERT INTO $tabelaDataAgendamento (matricula_aluno,nome_aluno,sala,prof,entrada,saida,materia,qtd_hora,valor) VALUES('$matricula','$nomeAluno','$salaDeAula','$professor','$horarioEntrada','$horarioSaida','$materiaAula','$tempoDeAula','$valorDaAula')");
+        if ($inserirTabelaData) {
+            echo "Inserido <br>";
+        } else {
+            echo "Não inserido: " . mysql_error();
+        }
     }
 
     //Inserir o registro na tabela criada
-    $QueryInserirTabelaData = "INSERT INTO $tabelaDataAgendamento(matricula_aluno,nome_aluno,sala,prof,entrada,saida,materia,qtd_hora,valor) VALUES('$matricula','$nomeAluno','$salaDeAula','$professor','$horarioEntrada','$horarioSaida','$materiaAula','$tempoDeAula','$valorDaAula')";
-    $inserirTabelaData = mysql_query($QueryInserirTabelaData);
+    $inserirTabelaData = mysql_query("INSERT INTO $tabelaDataAgendamento (matricula_aluno,nome_aluno,sala,prof,entrada,saida,materia,qtd_hora,valor) VALUES('$matricula','$nomeAluno','$salaDeAula','$professor','$horarioEntrada','$horarioSaida','$materiaAula','$tempoDeAula','$valorDaAula')");
 
     $tempoAula = $tempoDeAula;
     //Update nas salas
@@ -62,7 +66,7 @@ if ($dbExists) {
         . "</b> e saída as: <b>" . $horarioSaida . "</b>!<br>";
         echo "Fazendo update nos horários da <b>" . $salaDeAula . "</b>";
     } else {
-        echo "Não Inserido! Erro: " . mysql_error();
+        echo "Não Inserido! Erro: " . die(mysql_error());
     }
     echo "<br>";
     //Update na tabela da sala selecionada dentro do db do dia
@@ -70,70 +74,73 @@ if ($dbExists) {
     echo "<b>Inserindo registro para acompanhamento na agenda... </b><br>";
 } else {
 //    Criar novo banco de dados para o mês de referência
-    $QueryCriarDB = "CREATE DATABASE $DbDiaAula DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci";
-    $criarDBDiaAula = mysql_query($QueryCriarDB);
+    $criarDBDiaAula = mysql_query("CREATE DATABASE $DbDiaAula DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci");
 
-    //Se criado
-    if ($criarDBDiaAula) {
-        echo "Banco de dados do dia <b>" . $tabelaDataAgendamento . "</b> criado!";
-        echo "<br>";
-        echo "Criando Tabelas...";
-        echo "<br>";
-        //    Conceder Privilégios para o usuário do DB
-        if (mysql_query("SELECT * FROM mysql.user WHERE User LIKE '%username=" . USUARIO_DB . "%'")) {
+//Depois de Criado
+    echo "Banco de dados do dia <b>" . $tabelaDataAgendamento . "</b> criado!";
+    echo "<br>";
+    echo "Criando Tabelas...";
+    echo "<br>";
+    //    Conceder Privilégios para o usuário do DB
+    if (mysql_query("SELECT * FROM mysql.user WHERE User LIKE '%username=" . USUARIO_DB . "%'")) {
 //            echo "O usuário <b>" . USUARIO_DB . "</b> Existe!<br>";
-            $senhaDB = SENHA_DB;
+        $senhaDB = SENHA_DB;
+        $QueryConcederPrivilegios = "GRANT ALL PRIVILEGES ON * . * TO '" . USUARIO_DB . "'@'localhost' identified by '$senhaDB';";
+        $ExeQrConcederPrivilegios = mysql_query($QueryConcederPrivilegios);
+        if ($ExeQrConcederPrivilegios) {
+//                echo "Privilégios concedidos no DB: " . $DbDiaAula . " para o usuario: " . USUARIO_DB . "<br>";
+            $QueryFlushPrivilegios = "FLUSH PRIVILEGES";
+            $ExeQrFlushPrivilegios = mysql_query($QueryFlushPrivilegios);
+
+            if ($ExeQrFlushPrivilegios) {
+//                    echo "Privilégios Atualizados!<br>";
+            } else {
+//                    echo "Erro na atualização dos privilégios: " . mysql_error() . "<br>";
+            }
+        } else {
+            mysql_query("CREATE USER '" . USUARIO_DB . "'@'localhost' IDENTIFIED BY '$senhaDB'");
             $QueryConcederPrivilegios = "GRANT ALL PRIVILEGES ON * . * TO '" . USUARIO_DB . "'@'localhost' identified by '$senhaDB';";
             $ExeQrConcederPrivilegios = mysql_query($QueryConcederPrivilegios);
-            if ($ExeQrConcederPrivilegios) {
-//                echo "Privilégios concedidos no DB: " . $DbDiaAula . " para o usuario: " . USUARIO_DB . "<br>";
-                $QueryFlushPrivilegios = "FLUSH PRIVILEGES";
-                $ExeQrFlushPrivilegios = mysql_query($QueryFlushPrivilegios);
-
-                if ($ExeQrFlushPrivilegios) {
+            $QueryFlushPrivilegios = "FLUSH PRIVILEGES";
+            $ExeQrFlushPrivilegios = mysql_query($QueryFlushPrivilegios);
+            if ($ExeQrFlushPrivilegios) {
 //                    echo "Privilégios Atualizados!<br>";
-                } else {
-//                    echo "Erro na atualização dos privilégios: " . mysql_error() . "<br>";
-                }
             } else {
-                mysql_query("CREATE USER '" . USUARIO_DB . "'@'localhost' IDENTIFIED BY '$senhaDB'");
-                $QueryConcederPrivilegios = "GRANT ALL PRIVILEGES ON * . * TO '" . USUARIO_DB . "'@'localhost' identified by '$senhaDB';";
-                $ExeQrConcederPrivilegios = mysql_query($QueryConcederPrivilegios);
-                $QueryFlushPrivilegios = "FLUSH PRIVILEGES";
-                $ExeQrFlushPrivilegios = mysql_query($QueryFlushPrivilegios);
-                if ($ExeQrFlushPrivilegios) {
-//                    echo "Privilégios Atualizados!<br>";
-                } else {
 //                    echo "Erro na atualização dos privilégios: " . mysql_error() . "<br>";
-                }
+            }
 
 //                echo "Erro ao atribuir privilégios: " . mysql_error() . "<br>";
-            }
-        }
-        $conexaoDBMes = mysql_connect(HOST, USER, PASS);
-        mysql_select_db($DbDiaAula, $conexaoDBMes);
-
-        //Criar a tabela no DB do dia
-        $QueryCriarTabelaData = "CREATE TABLE `$tabelaDataAgendamento`(id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, matricula_aluno int, nome_aluno varchar(255),sala varchar(255),prof varchar(255),entrada float,saida float,materia varchar(255),qtd_hora float, valor float)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci";
-        mysql_query($QueryCriarTabelaData);
-
-        //Criar as tabelas das salas de aula
-        include 'pages/extra/CriarTabelasDasSalas.php';
-        if ($criarSala1 && $criarSala2 && $criarSala3 && $criarSala4 && $criarSala5) {
-            //Terminado a criação Inserir os registros
-            include 'pages/extra/InserirRegistrosDasSalas.php';
-            echo "Inserindo o Registro da aula agendada no banco de dados do dia: <b>" . $tabelaDataAgendamento . "</b>...<br>";
-        }
-        echo "Fazer update nos horários da <b>" . $salaDeAula . "</b>...<br>";
-        //Inserir o registro na tabela criada
-        $QueryInserirTabelaData = "INSERT INTO $tabelaDataAgendamento(matricula_aluno,nome_aluno,sala,prof,entrada,saida,materia,qtd_hora,valor) VALUES('$matricula','$nomeAluno','$salaDeAula','$professor','$horarioEntrada','$horarioSaida','$materiaAula','$tempoDeAula','$valorDaAula')";
-        $inserirTabelaData = mysql_query($QueryInserirTabelaData);
-        if ($inserirTabelaData) {
-            //Update na tabela da sala selecionada dentro do db do dia
-            $tempoAula = $tempoDeAula;
-            //Update nas salas
-            include 'pages/extra/switchUpdateSala.php';
-            mysql_close($conexaoDBMes);
         }
     }
+    $conexaoDBMes = mysql_connect(HOST, USER, PASS);
+    mysql_select_db($DbDiaAula, $conexaoDBMes);
+
+    //Criar a tabela no DB do dia
+
+    $QueryCriarTabelaData = "CREATE TABLE `$tabelaDataAgendamento` (id int(11) NOT NULL AUTO_INCREMENT,matricula_aluno int(11) DEFAULT NULL,nome_aluno varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,sala varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,prof varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,entrada varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,saida varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,materia varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,qtd_hora float NOT NULL,valor varchar(255) NOT NULL,PRIMARY KEY (id)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci";
+    mysql_query($QueryCriarTabelaData);
+
+    //Criar as tabelas das salas de aula
+    include 'pages/extra/CriarTabelasDasSalas.php';
+    if ($criarSala1 && $criarSala2 && $criarSala3 && $criarSala4 && $criarSala5 && $criarSala6) {
+        //Terminado a criação Inserir os registros
+        include 'pages/extra/InserirRegistrosDasSalas.php';
+        echo "Inserindo o Registro da aula agendada no banco de dados do dia: <b>" . $tabelaDataAgendamento . "</b>...<br>";
+    }
+    //Inserir o registro na tabela criada
+    $inserirTabelaData = mysql_query("INSERT INTO $tabelaDataAgendamento (matricula_aluno,nome_aluno,sala,prof,entrada,saida,materia,qtd_hora,valor) VALUES('$matricula','$nomeAluno','$salaDeAula','$professor','$horarioEntrada','$horarioSaida','$materiaAula','$tempoDeAula','$valorDaAula')");
+    if ($inserirTabelaData) {
+        echo "Inserido <br>";
+    } else {
+        echo "Não inserido: " . mysql_error();
+    }
+    echo "Fazer update nos horários da <b>" . $salaDeAula . "</b>...<br>";
+
+    //Update na tabela da sala selecionada dentro do db do dia
+    $tempoAula = $tempoDeAula;
+    //Update nas salas
+    include 'pages/extra/switchUpdateSala.php';
+    //Inserir o registro na tabela criada
+    echo $inserirTabelaData = mysql_query("INSERT INTO $tabelaDataAgendamento (matricula_aluno,nome_aluno,sala,prof,entrada,saida,materia,qtd_hora) VALUES('$matricula','$nomeAluno','$salaDeAula','$professor','$horarioEntrada','$horarioSaida','$materiaAula','$tempoDeAula')");
+    mysql_close($conexaoDBMes);
 }

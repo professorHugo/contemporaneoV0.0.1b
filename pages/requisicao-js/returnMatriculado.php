@@ -1,6 +1,7 @@
 <?php
 #Versão com ajax
 if ($_GET['BtnClicado'] == 'matriculado') {
+    include '../../cnf/config.php';
     sleep(1);
     ?>
     <div class="form-group col-md-3">

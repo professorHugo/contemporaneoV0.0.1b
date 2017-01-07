@@ -19,7 +19,7 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;font-size: 18px;">
-                        Agenda<span class="caret"></span>
+                        Agenda <span class="caret"></span>
                         <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span>
                     </a>
                     <ul class="dropdown-menu forAnimate" role="menu">
@@ -42,7 +42,7 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;font-size: 18px;">
-                        Alunos<span class="caret"></span>
+                        Alunos <span class="caret"></span>
                         <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span>
                     </a>
                     <ul class="dropdown-menu forAnimate" role="menu">
@@ -65,7 +65,7 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;font-size: 18px;">
-                        Professores<span class="caret"></span>
+                        Professores <span class="caret"></span>
                         <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-education"></span>
                     </a>
                     <ul class="dropdown-menu forAnimate" role="menu">
@@ -83,8 +83,26 @@
                 </li>
                 <li>
                     <a href="#" style="color:#fff;font-size: 18px;">
-                        Alterar Senha<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-lock"></span></span>
+                        Alterar Senha<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-lock"></span>
                     </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;font-size: 18px;">
+                        Configurações <span class="caret"></span>
+                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-adjust"></span>
+                    </a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li>
+                            <a href="?acesso=Configuracoes" class="sub-menu" style="color:#fff">
+                                <span class="glyphicon glyphicon-transfer"> Valores</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="?acesso=CadastrarMaterias" class="sub-menu" style="color:#fff">
+                                <span class="glyphicon glyphicon-edit"> Cadastrar Matérias</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="home.php?LogOff" style="color:#fff;font-size: 18px;">

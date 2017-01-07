@@ -115,9 +115,9 @@
                 </a>
             </div>
             <div class="col-md-3" style="padding-top:20px">
-                <!--a href="?acesso=ConsultarProfessores" style="color:#fff">
-                    <span class="glyphicon glyphicon-search"> Consultar</span>
-                </a-->
+                <a href="?acesso=CadastrarMaterias" class="sub-menu" style="color:#fff">
+                    <span class="glyphicon glyphicon-edit"> Cadastrar Disciplinas</span>
+                </a>
             </div>
             <div class="col-md-3" style="padding-top:20px">
                 <a href="?acesso=ConsultarProfessores" style="color:#fff">

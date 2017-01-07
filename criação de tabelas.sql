@@ -5,38 +5,38 @@ CREATE DATABASE contemporaneo DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500
 CREATE TABLE alunos (
  matricula_aluno int(11) NOT NULL AUTO_INCREMENT,
  nome_aluno varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
- escolaridade_aluno int(11) NOT NULL,
+ escolaridade_aluno varchar(255) NOT NULL,
  telefone_aluno varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  nome_mae varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  telefone_mae varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  nome_pai varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  telefone_pai varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  foto_aluno varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL DEFAULT 'img/fotos/default.png',
- cep_endereco varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- endereco_completo varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ cep_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ endereco_completo varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  numero_endereco int(11) DEFAULT NULL,
  bairro_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  cidade_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- estado_endereco varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ estado_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  complemento_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  cupom_desconto varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  PRIMARY KEY (matricula_aluno)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 /*Tabela de Agendamento de aulas*/
 CREATE TABLE agenda_aulas (
  id int(11) NOT NULL AUTO_INCREMENT,
  matricula_aluno int(11) DEFAULT NULL,
  nome_aluno varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
- data varchar(50) COLLATE utf8_general_mysql500_ci NOT NULL,
- sala varchar(50) COLLATE utf8_general_mysql500_ci NOT NULL,
- prof varchar(50) COLLATE utf8_general_mysql500_ci NOT NULL,
- entrada varchar(50) COLLATE utf8_general_mysql500_ci NOT NULL,
- saida varchar(50) COLLATE utf8_general_mysql500_ci NOT NULL,
- materia varchar(50) COLLATE utf8_general_mysql500_ci NOT NULL,
+ data varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
+ sala varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
+ prof varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
+ entrada varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
+ saida varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
+ materia varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
  qtd_hora float NOT NULL,
  valor float NOT NULL,
- pagamento varchar(50) COLLATE utf8_general_mysql500_ci NOT NULL,
+ pagamento varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
  PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Fim Tabema de Agendamento de aulas*/
@@ -46,7 +46,20 @@ CREATE TABLE materias_disponiveis (
  id int(11) NOT NULL AUTO_INCREMENT,
  materia varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
  PRIMARY KEY (id)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+/*Inserir Registros das materias_disponiveis*/
+INSERT INTO materias_disponiveis(materia) VALUES 
+('Artes'),
+('Geografia'),
+('HistÃ³ria'),
+('Filosofia'),
+('MatemÃ¡tica'),
+('Sociologia'),
+('Biologia'),
+('FÃ­sica'),
+('InglÃªs'),
+('PortuguÃªs')
+;
 /*Fim de Matérias Disponíveis*/
 
 /*Professores*/
@@ -54,25 +67,27 @@ CREATE TABLE materias_disponiveis (
 CREATE TABLE professores (
  id int(11) NOT NULL AUTO_INCREMENT,
  nome varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
- materia varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- telefone_principal varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- telefone_contato varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- cep_endereco varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- endereco_completo varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ materia varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ telefone_principal varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ telefone_contato varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ cep_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ endereco_completo varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  numero_endereco int(11) DEFAULT NULL,
  bairro_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  cidade_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- estado_endereco varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ estado_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  complemento_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- banco_professor varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- agencia_banco_professor varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- dig_agencia_banco_professor varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
- conta_banco_professor varchar(50) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ banco_professor varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ agencia_banco_professor varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ dig_agencia_banco_professor varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
+ conta_banco_professor varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  valor_hora float DEFAULT NULL,
  dia_pagamento int(11) DEFAULT NULL,
  PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+/*Professor de Testes*/
+INSERT INTO professores (id, nome, materia, telefone_principal, telefone_contato, cep_endereco, endereco_completo, numero_endereco, bairro_endereco, cidade_endereco, estado_endereco, complemento_endereco, banco_professor, agencia_banco_professor, dig_agencia_banco_professor, conta_banco_professor, valor_hora, dia_pagamento) VALUES
+(1, 'Ariosvaldo dos Santos', 'Artes', '11946792419', '11946792419', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 1', '', '8452', '', '130860', 10, 5);
 /*Fim de Professores*/
 
 
@@ -82,7 +97,7 @@ CREATE TABLE professores (
 	 cod_sala int(11) NOT NULL,
 	 nome_sala varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
 	 PRIMARY KEY (cod_sala)
-	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 	/*Inserir nomes das salas*/
 	INSERT INTO salas(cod_sala,nome_sala) VALUES (1,'sala1'),(2,'sala2'),(3,'sala3'),(4,'sala4'),(5,'sala5'),(6,'sala6');
 
@@ -162,7 +177,7 @@ CREATE TABLE sala6 (
  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Registros da Sala 6*/
-INSERT INTO sala6 (id, entrada, saida, status, exibir_entrada, exibir_saida) VALUES (1, 8, 8.5, 0,"08:00","08:30"),(2, 8.5, 9, 0,"08:30","09:00"),(3, 9, 9.5, 0,"09:00","09:30"),(4, 9.5, 10, 0,"09:30","10:00"),(5, 10, 10.5, 0,"10:00","10:30"),(6, 10.5, 11, 0,"10:30","11:00"),(7, 11, 11.5, 0,"11:00","11:30"),(8, 11.5, 12, 0,"11:30","12:00"),(9, 12, 12.5, 0,"12:00","12:30"),(10, 12.5, 13, 0,"12:30","13:00"),(11, 13, 13.5, 0,"13:00","13:30"),(12, 13.5, 14, 0,"13:30","14:00"),(13, 14, 14.5, 0,"14:00","14:30"),(14, 14.5, 15, 0,"14:30","15:00"),(15, 15, 15.5, 0,"15:00","15:30"),(16, 15.5, 16, 0,"15:30","16:00"),(17, 16, 16.5, 0,"16:00","16:30"),(18, 16.5, 17, 0,"16:30","17:00"),(19, 17, 17.5, 0,"17:00","17:30"),(20, 17.5, 18, 0,"17:30","18:00"),(21, 18, 18.5, 0,"18:00","18:30"),(22, 18.5, 19, 0,"18:30","19:00"),(23, 19, 19.5, 0,"19:00","19:30"),(24, 19.5, 20, 0,"19:30","20:00"),(25, 20, 20.5, 0,"20:00","20:30"),(26, 20.5, 21, 0,"20:30","21:00"),(27, 21, 21.5, 0,"21:00","21:30"),(28, 21.5, 22, 0,"21:30","22:00")
+INSERT INTO sala6 (id, entrada, saida, status, exibir_entrada, exibir_saida) VALUES (1, 8, 8.5, 0,"08:00","08:30"),(2, 8.5, 9, 0,"08:30","09:00"),(3, 9, 9.5, 0,"09:00","09:30"),(4, 9.5, 10, 0,"09:30","10:00"),(5, 10, 10.5, 0,"10:00","10:30"),(6, 10.5, 11, 0,"10:30","11:00"),(7, 11, 11.5, 0,"11:00","11:30"),(8, 11.5, 12, 0,"11:30","12:00"),(9, 12, 12.5, 0,"12:00","12:30"),(10, 12.5, 13, 0,"12:30","13:00"),(11, 13, 13.5, 0,"13:00","13:30"),(12, 13.5, 14, 0,"13:30","14:00"),(13, 14, 14.5, 0,"14:00","14:30"),(14, 14.5, 15, 0,"14:30","15:00"),(15, 15, 15.5, 0,"15:00","15:30"),(16, 15.5, 16, 0,"15:30","16:00"),(17, 16, 16.5, 0,"16:00","16:30"),(18, 16.5, 17, 0,"16:30","17:00"),(19, 17, 17.5, 0,"17:00","17:30"),(20, 17.5, 18, 0,"17:30","18:00"),(21, 18, 18.5, 0,"18:00","18:30"),(22, 18.5, 19, 0,"18:30","19:00"),(23, 19, 19.5, 0,"19:00","19:30"),(24, 19.5, 20, 0,"19:30","20:00"),(25, 20, 20.5, 0,"20:00","20:30"),(26, 20.5, 21, 0,"20:30","21:00"),(27, 21, 21.5, 0,"21:00","21:30"),(28, 21.5, 22, 0,"21:30","22:00");
 /*Fim da criação das salas de aula*/
 
 /*Tabela de usuários*/
@@ -177,7 +192,7 @@ CREATE TABLE usuarios (
  level_acesso int(11) NOT NULL,
  foto varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL DEFAULT 'img/default.png',
  PRIMARY KEY (id)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Registro do usuário Master*/
 INSERT INTO usuarios(id,nome,usuario,usuario_md5,senha,senha_md5,departamento,level_acesso,foto) VALUES(1,'Administrador do Sistema','mater','eb0a191797624dd3a48fa681d3061212','master','eb0a191797624dd3a48fa681d3061212','Adm Sis',0,'img/fotos/admin.png');
 /*Fim da tabela de usuários*/
@@ -205,7 +220,7 @@ id int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 variar float DEFAULT '0'
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Insert Variações*/
-INSERT INTO variacao_preco(id,variar) VALUES(1,0),(1,40);
+INSERT INTO variacao_preco(id,variar) VALUES(1,0),(2,40);
 /*Fim variações*/
 
 /*Fazer Tabela Yoshio*/

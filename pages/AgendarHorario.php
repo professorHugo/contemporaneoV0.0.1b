@@ -9,42 +9,47 @@ if (isset($_POST['enviar'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <a href="?acesso=Home" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
-                    <h4 class="modal-title" id="myModalLabel">Registrando aula do solicitada!</h4>
+                    <h4 class="modal-title" id="myModalLabel">Registrando a aula solicitada!</h4>
                 </div>
                 <div class="modal-body">
 
                     <?php
-                    $QueryBuscarPagamentoProfessor = "SELECT * FROM professores WHERE nome = '$_POST[professor]'";
-                    $ExeQrBuscarPagamentoProfessor = mysql_query($QueryBuscarPagamentoProfessor);
+                    $ExeQrBuscarPagamentoAula = mysql_query("SELECT * FROM escolaridade_aluno WHERE id = '$_POST[escolaridade_aluno]'");
                     $matricula = $_POST['matricula_aluno'];
                     $nomeAluno = $_POST['nome_aluno'];
+                    $telefoneAluno = $_POST['telefone_aluno'];
                     $dataAula = $_POST['data'];
                     $salaDeAula = $_POST['sala_de_aula'];
                     $professor = $_POST['professor'];
                     $tempoDeAula = $_POST['tempo_de_aula'];
+                    while ($ResBuscarEscolaridade = mysql_fetch_assoc($ExeQrBuscarPagamentoAula)) {
+                        $escolaridadeAluno = $ResBuscarEscolaridade['nivel'];
+                        $valorDaAula = $ResBuscarEscolaridade['valor']*$tempoDeAula;
+                    }
                     $horarioEntrada = $_POST['horario_entrada'];
                     $horarioSaida = $horarioEntrada + $tempoDeAula;
                     $materiaAula = $_POST['materia'];
-                    while ($resPagamentoProf = mysql_fetch_assoc($ExeQrBuscarPagamentoProfessor)) {
-                        $valorDaAula = $tempoDeAula * $resPagamentoProf['valor_hora'];
-                    }
                     $pagamentoAula = $_POST['pagamento'];
                     $compartilharAula = $_POST['compartilhar_aula'];
 
                     //Pré Cadastro do aluno
-                    $QueryConsultarAlunos = "SELECT * FROM alunos WHERE matricula_aluno = '$matricula'";
-                    $ExeQrConsultarAlunos = mysql_query($QueryConsultarAlunos);
-                    if ($ExeQrConsultarAlunos) {
-                        $QrPreCadastrarAluno = "INSERT INTO alunos (matricula_aluno,nome_aluno) VALUES ('$matricula','$nomeAluno')";
-                        $cadastrarAluno = mysql_query($QrPreCadastrarAluno);
+                    $ExeQrConsultarAlunos = mysql_query("SELECT * FROM alunos WHERE matricula_aluno = '$matricula'");
+                    if (mysql_num_rows($ExeQrConsultarAlunos) <= 0) {
+                        $cadastrarAluno = mysql_query("INSERT INTO alunos (matricula_aluno,nome_aluno,escolaridade_aluno,telefone_aluno) VALUES ('$matricula','$nomeAluno','$escolaridadeAluno','$telefoneAluno')")or die(mysql_error());
                         ?>
                         <p>O aluno <b><?php echo $nomeAluno ?></b> agora tem um pré-cadastro com o registro: <b><?php echo $matricula ?></b>.
                         <p>Lembre de atualizar o cadastro no dia da aula!</p>
+                        <?php
+                    }else{
+                        ?>
+                        <p>O aluno: <b><?php echo $nomeAluno?></b> já tem cadastro, verifique se está atualizado!</p>
                         <?php
                     }
                     ?>
                     <h4>Iniciando o processo de inclusão da aula no banco de dados...</h4>
                     <?php
+                    echo "Valor da Aula: $valorDaAula <br>";
+                    echo "Escolaridade: $escolaridadeAluno <br>";
 //Agenda por dia, estudar uma forma neste abaixo, criar uma tabela com o dia para armazenar os agendamentos
                     include_once 'pages/extra/criacao_db_e_tabelas_data.php';
 
