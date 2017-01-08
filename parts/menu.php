@@ -93,7 +93,7 @@
                     </a>
                     <ul class="dropdown-menu forAnimate" role="menu">
                         <li>
-                            <a href="?acesso=Configuracoes" class="sub-menu" style="color:#fff">
+                            <a href="?acesso=ConfiguracoesPrecos" class="sub-menu" style="color:#fff">
                                 <span class="glyphicon glyphicon-transfer"> Valores</span>
                             </a>
                         </li>

@@ -23,6 +23,9 @@ if (isset($_POST['enviar'])) {
                     $professor = $_POST['professor'];
                     $tempoDeAula = $_POST['tempo_de_aula'];
                     while ($ResBuscarEscolaridade = mysql_fetch_assoc($ExeQrBuscarPagamentoAula)) {
+                        if(date('m') < 4){
+                            $ResBuscarEscolaridade['valor'] = $ResBuscarEscolaridade['valor'] + ($ResBuscarEscolaridade['valor'] * 40)/100;
+                        }
                         $escolaridadeAluno = $ResBuscarEscolaridade['nivel'];
                         $valorDaAula = $ResBuscarEscolaridade['valor']*$tempoDeAula;
                     }
