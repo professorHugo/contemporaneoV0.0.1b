@@ -1,6 +1,10 @@
 /*Criar o banco de dados*/
 CREATE DATABASE contemporaneo DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
+/*EXCLUIR AS TABELAS E DB EXTRA*/
+DROP DATABASE n2yco43509_01_2017;
+DROP TABLES agenda_aulas,alunos,escolaridade_aluno,materias_disponiveis,professores,sala1,sala2,sala3,sala4,sala5,sala6,salas,usuarios,variacao_preco;
+/*FIM EXCLUIR*/
 /*Tabela ALUNOS */
 CREATE TABLE alunos (
  matricula_aluno int(11) NOT NULL AUTO_INCREMENT,
@@ -21,7 +25,17 @@ CREATE TABLE alunos (
  complemento_endereco varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  cupom_desconto varchar(255) COLLATE utf8_general_mysql500_ci DEFAULT NULL,
  PRIMARY KEY (matricula_aluno)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+/*Inserir Alunos de Testes*/
+INSERT INTO alunos (matricula_aluno, nome_aluno, escolaridade_aluno, telefone_aluno, nome_mae, telefone_mae, nome_pai, telefone_pai, foto_aluno, cep_endereco, endereco_completo, numero_endereco, bairro_endereco, cidade_endereco, estado_endereco, complemento_endereco, cupom_desconto) VALUES
+(1, 'Aluno de Testes 1 - Fundamental', 'Fundamental', '11999999999', NULL, NULL, NULL, NULL, 'img/fotos/default.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'Aluno de Testes 2 - MÃ©dio', 'Medio', '11999999999', NULL, NULL, NULL, NULL, 'img/fotos/default.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'Aluno de Testes 3 - Colegial', 'Colegial', '11999999999', NULL, NULL, NULL, NULL, 'img/fotos/default.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 'Aluno de Testes 4 - Cursinho', 'Cursinho', '11999999999', NULL, NULL, NULL, NULL, 'img/fotos/default.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'Aluno de Testes 5 - Tutoria', 'Tutoria', '11999999999', NULL, NULL, NULL, NULL, 'img/fotos/default.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 'Aluno de Testes 6 - Grupo', 'Grupo', '11999999999', NULL, NULL, NULL, NULL, 'img/fotos/default.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 'Aluno de Testes 7 - Faculdade', 'Faculdade', '11999999999', NULL, NULL, NULL, NULL, 'img/fotos/default.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+/*Fim da tabela de alunos*/
 
 /*Tabela de Agendamento de aulas*/
 CREATE TABLE agenda_aulas (
@@ -38,7 +52,7 @@ CREATE TABLE agenda_aulas (
  valor float NOT NULL,
  pagamento varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
  PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Fim Tabema de Agendamento de aulas*/
 
 /*Matérias Disponíveis*/
@@ -46,7 +60,7 @@ CREATE TABLE materias_disponiveis (
  id int(11) NOT NULL AUTO_INCREMENT,
  materia varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
  PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Inserir Registros das materias_disponiveis*/
 INSERT INTO materias_disponiveis(materia) VALUES 
 ('Artes'),
@@ -84,10 +98,19 @@ CREATE TABLE professores (
  valor_hora float DEFAULT NULL,
  dia_pagamento int(11) DEFAULT NULL,
  PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Professor de Testes*/
 INSERT INTO professores (id, nome, materia, telefone_principal, telefone_contato, cep_endereco, endereco_completo, numero_endereco, bairro_endereco, cidade_endereco, estado_endereco, complemento_endereco, banco_professor, agencia_banco_professor, dig_agencia_banco_professor, conta_banco_professor, valor_hora, dia_pagamento) VALUES
-(1, 'Ariosvaldo dos Santos', 'Artes', '11946792419', '11946792419', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 1', '', '8452', '', '130860', 10, 5);
+(1, 'Ariosvaldo dos Santos', 'Artes', '11946792419', '11946792419', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 1', '', '8452', '', '130860', 10, 5),
+(2, 'Clementino dos Santos Oliveira', 'Geografia', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 2', '', '8452', '', '130860', 30, 10),
+(3, 'Risos Cledivanderson', 'HistÃ³ria', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 3', '', '8452', '', '130860', 35, 10),
+(4, 'ClÃ©verson dos Santos', 'Filosofia', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 4', '', '8452', '', '130860', 37, 10),
+(5, 'Aristolfo de Oliveira', 'MatemÃ¡tica', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 5', '', '8452', '', '130860', 32, 10),
+(6, 'Benedito dos Santos', 'Sociologia', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 6', '', '8452', '', '130860', 29, 10),
+(7, 'Cleonildo Neves', 'Biologia', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 7', '', '8452', '', '130860', 38, 10),
+(8, 'DiÃ³genes Clementino', 'FÃ­sica', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 8', '', '8452', '', '130860', 42, 10),
+(9, 'EugÃªnio da Silva', 'InglÃªs', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 9', '', '8452', '', '130860', 41, 10),
+(10, 'Fiuky Tashi', 'PortuguÃªs', '11999999999', '11999999999', '03977380', 'Rua Sargento EdÃ©sio Afonso de Carvalho', 128, 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'Conjunto Habitacional Marechal Mascarenhas de Morais', 'SP', 'Casa 10', '', '8452', '', '130860', 44, 10);
 /*Fim de Professores*/
 
 
@@ -192,7 +215,7 @@ CREATE TABLE usuarios (
  level_acesso int(11) NOT NULL,
  foto varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL DEFAULT 'img/default.png',
  PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Registro do usuário Master*/
 INSERT INTO usuarios(id,nome,usuario,usuario_md5,senha,senha_md5,departamento,level_acesso,foto) VALUES(1,'Administrador do Sistema','mater','eb0a191797624dd3a48fa681d3061212','master','eb0a191797624dd3a48fa681d3061212','Adm Sis',0,'img/fotos/admin.png');
 /*Fim da tabela de usuários*/
@@ -205,9 +228,9 @@ CREATE TABLE escolaridade_aluno (
 id int(10) not null primary key auto_increment,
 nivel varchar(255),
 valor float
-)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Inserir Valores na tabela de preço por escolaridade_aluno */
-INSERT INTO escolaridade_aluno (nivel,valor)VALUES ('Fundamental','10'),('Medio','20'),('Colegial','30'),('Cursinho','40'),('Tutoria','50'),('Grupo','60'),('Faculdade','40');
+INSERT INTO escolaridade_aluno (nivel,valor)VALUES ('Fundamental','102'),('Medio','109'),('Colegial','118'),('Cursinho','120'),('Tutoria','80'),('Grupo','80'),('Faculdade','80');
 /*Fim Valores para pagamento de aulas (base)*/
 
 /*
@@ -218,9 +241,11 @@ INSERT INTO escolaridade_aluno (nivel,valor)VALUES ('Fundamental','10'),('Medio'
 CREATE TABLE variacao_preco (
 id int (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 variar float DEFAULT '0'
-)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 /*Insert Variações*/
 INSERT INTO variacao_preco(id,variar) VALUES(1,0),(2,40);
 /*Fim variações*/
 
-/*Fazer Tabela Yoshio*/
+/*Tabela de salas update
+CREATE TABLE sala1 (id int(11) NOT NULL PRIMARY KEY, entrada float, saida float, status int(11) NOT NULL DEFAULT '0', materia varchar(255)NULL, professor varchar(255) NULL, exibir_entrada varchar(255), exibir_saida varchar(255), compartilhada int NULL, aluno id(11) NULL DEFAULT 0 FOREIGN KEY (aluno) references alunos(matricula_aluno))ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci
+*/

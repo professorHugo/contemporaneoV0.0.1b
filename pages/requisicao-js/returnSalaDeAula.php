@@ -5,7 +5,7 @@ if (isset($_GET['DataSelecionada'])) {
 
     $dataInformada = $_GET['DataSelecionada'];
     $QueryBuscarSalaPorData = "SELECT * FROM salas";
-    
+
     session_start();
     $_SESSION['DATA'] = $dataInformada;
 //    sleep(1);
@@ -16,10 +16,15 @@ if (isset($_GET['DataSelecionada'])) {
     <?php
     if ($ContBuscarSalaPorData > 0) {
         while ($ResultadoSalaPorData = mysql_fetch_assoc($resultBuscarSalaPorData)) {
-            $_SESSION['DATA_EXISTE'] = "n2yco435".$dataInformada;
+            $_SESSION['DATA_EXISTE'] = "n2yco435" . $dataInformada;
             $SalaReturn = $ResultadoSalaPorData['nome_sala'];
+            if ($SalaReturn == 'sala6') {
+                $SalaReturnNome = $SalaReturn . " - Residência";
+            }else{
+                $SalaReturnNome = $SalaReturn;
+            }
             ?>
-            <option value="<?php echo $SalaReturn ?>"><?php echo $SalaReturn ?></option>
+            <option value="<?php echo $SalaReturn ?>"><?php echo $SalaReturnNome ?></option>
             <?php
         }
     }

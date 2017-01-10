@@ -115,39 +115,12 @@ if (mysql_num_rows($exeQrBuscarAgenda) > 0) {
                                             $alturaCelula = $qtdHorario * 21;
                                             $CorSala = $resAgendaDia['sala'];
                                             $salaDeAulaAgendada = $resAgendaDia['sala'];
-                                            switch ($CorSala) {
-                                                case "sala1": $Style = "background-color:rgb(242,128,0);color:rgb(255,255,255)";
-                                                    break;
-                                                case "sala2": $Style = "background-color:rgb(68,157,9);color:rgb(255,255,255)";
-                                                    break;
-                                                case "sala3": $Style = "background-color:rgb(22,143,77);color:rgb(255,255,255)";
-                                                    break;
-                                                case "sala4": $Style = "background-color:rgb(105,14,28);color:rgb(255,255,255)";
-                                                    break;
-                                                case "sala5": $Style = "background-color:rgb(21,104,145);color:rgb(255,255,255)";
-                                                    break;
-                                                case "sala6": $Style = "background-color:rgb(22,16,106);color:rgb(255,255,255)";
-                                                    break;
-                                            }
-                                            include 'pages/includes/switchHoraEntradaSaida.php';
-                                            switch ($qtdHorario) {
-                                                case 0.5: $Height = "height:22px;";
-                                                    break;
-                                                case 1: $Height = "height:44px;padding-top:10px!important;";
-                                                    break;
-                                                case 1.5: $Height = "height:66px;padding-top:20px!important;";
-                                                    break;
-                                                case 2: $Height = "height:88px;padding-top:30px!important;";
-                                                    break;
-                                                case 2.5: $Height = "height:110px;padding-top:40px!important;";
-                                                    break;
-                                                case 3: $Height = "height:110px;padding-top:50px!important;";
-                                                    break;
-                                            }
+                                            include 'pages/includes/switchesSalasAgenda.php';
                                             ?>
-                                            <div class="col-md-12" style="<?php echo $Style . ";" . $Height ?>border-bottom:0.5px solid #ddd">
-                                                <?php echo lmWord($resAgendaDia['nome_aluno'], 19)?>
-                                                <a href="?acesso=ExibirEvento&Id=<?php echo $resAgendaDia['id']?>" title="<?php echo $resAgendaDia['materia']?>">
+                                            <div class="col-md-12" style="<?php echo $Style . $Height .$Spacing?>border-bottom:0.5px solid #ddd">
+                                                <?php echo lmWord($resAgendaDia['nome_aluno'], 19) ?>
+                                                <?php echo $resAgendaDia['entrada'] ?>
+                                                <a href="?acesso=ExibirEvento&Id=<?php echo $resAgendaDia['id'] ?>" title="<?php echo $resAgendaDia['materia'] ?>">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </a>
                                             </div>

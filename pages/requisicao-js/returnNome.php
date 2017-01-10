@@ -4,6 +4,8 @@ if (isset($_GET['SelectNome'])) {
     include '../../cnf/config.php';
 
     $matriculaAluno = $_GET['SelectNome'];
+    session_start();
+    $_SESSION['MATRICULA_ALUNO'] = $matriculaAluno;
     $QueryNomeAluno = "SELECT * FROM alunos WHERE matricula_aluno = '$matriculaAluno'";
 //    sleep(1);
     $resultBuscarNome = mysql_query($QueryNomeAluno);

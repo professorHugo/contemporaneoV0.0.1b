@@ -117,7 +117,7 @@ if ($dbExists) {
 
     //Criar a tabela no DB do dia
 
-    $QueryCriarTabelaData = "CREATE TABLE `$tabelaDataAgendamento` (id int(11) NOT NULL AUTO_INCREMENT,matricula_aluno int(11) DEFAULT NULL,nome_aluno varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,sala varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,prof varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,entrada varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,saida varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,materia varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,qtd_hora float NOT NULL,valor varchar(255) NOT NULL,PRIMARY KEY (id)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci";
+    $QueryCriarTabelaData = "CREATE TABLE $tabelaDataAgendamento (id int(11) NOT NULL AUTO_INCREMENT,matricula_aluno int(11) DEFAULT NULL,nome_aluno varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,sala varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,prof varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,entrada varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,saida varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,materia varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,qtd_hora float NOT NULL,valor varchar(255) NOT NULL,PRIMARY KEY (id)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci";
     mysql_query($QueryCriarTabelaData);
 
     //Criar as tabelas das salas de aula

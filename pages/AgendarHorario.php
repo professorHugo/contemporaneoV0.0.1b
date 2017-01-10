@@ -23,11 +23,16 @@ if (isset($_POST['enviar'])) {
                     $professor = $_POST['professor'];
                     $tempoDeAula = $_POST['tempo_de_aula'];
                     while ($ResBuscarEscolaridade = mysql_fetch_assoc($ExeQrBuscarPagamentoAula)) {
-                        if(date('m') < 4){
-                            $ResBuscarEscolaridade['valor'] = $ResBuscarEscolaridade['valor'] + ($ResBuscarEscolaridade['valor'] * 40)/100;
+                        if (date('m') > 4) {
+                            $ResBuscarEscolaridade['valor'] = $ResBuscarEscolaridade['valor'] + ($ResBuscarEscolaridade['valor'] * 8) / 100;
+                        }else{
+                            $ResBuscarEscolaridade['valor'] = $ResBuscarEscolaridade['valor'] - ($ResBuscarEscolaridade['valor'] * 8) / 100;
                         }
                         $escolaridadeAluno = $ResBuscarEscolaridade['nivel'];
-                        $valorDaAula = $ResBuscarEscolaridade['valor']*$tempoDeAula;
+                        $valorDaAula = $ResBuscarEscolaridade['valor'] * $tempoDeAula;
+                        if ($_POST['local_da_aula'] == 1) {
+                            $valorDaAula = $valorDaAula + ($valorDaAula + $valorDaAula * 40) / 100;
+                        }
                     }
                     $horarioEntrada = $_POST['horario_entrada'];
                     $horarioSaida = $horarioEntrada + $tempoDeAula;
@@ -43,9 +48,9 @@ if (isset($_POST['enviar'])) {
                         <p>O aluno <b><?php echo $nomeAluno ?></b> agora tem um pré-cadastro com o registro: <b><?php echo $matricula ?></b>.
                         <p>Lembre de atualizar o cadastro no dia da aula!</p>
                         <?php
-                    }else{
+                    } else {
                         ?>
-                        <p>O aluno: <b><?php echo $nomeAluno?></b> já tem cadastro, verifique se está atualizado!</p>
+                        <p>O aluno: <b><?php echo $nomeAluno ?></b> já tem cadastro, verifique se está atualizado!</p>
                         <?php
                     }
                     ?>
@@ -196,19 +201,28 @@ if (isset($_POST['enviar'])) {
             </div>
             <div class="form-group">
                 <div class="col-md-12"><hr></div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <label for="local_da_aula">Local da aula</label>
+                    <select name="local_da_aula" id="local_da_aula" class="form-control">
+                        <option value="0" selected>Escritório</option>
+                        <option value="1">Residência</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
                     <label for="pagamento">Pagamento</label>
                     <select name="pagamento" id="pagamento" class="form-control">
                         <option value="nao">Não</option>
                         <option value="sim">Sim</option>
                     </select>
+                </div>
+                <div class="col-md-4">
                     <label for="compartilhar_aula">Compartilhada</label>
                     <select name="compartilhar_aula" id="compartilhar_aula" class="form-control">
                         <option value="0">Não</option>
                         <option value="1">Sim</option>
                     </select>
                 </div>
-                <div class="col-md-6" style="padding-top: 25px">
+                <div class="col-md-12">
                     <label for="enviar" class="">&nbsp;</label>
                     <button type="submit" name="enviar" class="btn btn-success form-control">Agendar</button>
                 </div>
