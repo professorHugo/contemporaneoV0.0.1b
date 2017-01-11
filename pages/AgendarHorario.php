@@ -17,6 +17,8 @@ if (isset($_POST['enviar'])) {
                     $ExeQrBuscarPagamentoAula = mysql_query("SELECT * FROM escolaridade_aluno WHERE id = '$_POST[escolaridade_aluno]'");
                     $matricula = $_POST['matricula_aluno'];
                     $nomeAluno = $_POST['nome_aluno'];
+                    $respPagamento = $_POST['responsavel_pagamento'];
+                    $descricaoAula = $_POST['descricao_aula'];
                     $telefoneAluno = $_POST['telefone_aluno'];
                     $dataAula = $_POST['data'];
                     $salaDeAula = $_POST['sala_de_aula'];
@@ -25,8 +27,14 @@ if (isset($_POST['enviar'])) {
                     while ($ResBuscarEscolaridade = mysql_fetch_assoc($ExeQrBuscarPagamentoAula)) {
                         if (date('m') > 4) {
                             $ResBuscarEscolaridade['valor'] = $ResBuscarEscolaridade['valor'] + ($ResBuscarEscolaridade['valor'] * 8) / 100;
-                        }else{
+                        } else {
                             $ResBuscarEscolaridade['valor'] = $ResBuscarEscolaridade['valor'] - ($ResBuscarEscolaridade['valor'] * 8) / 100;
+                        }
+                        if ($professor == "Yoshio") {
+                            $ExeQrBuscarPagamentoAula = mysql_query("SELECT * FROM escolaridade_yoshio WHERE id = '$_POST[escolaridade_aluno]'");
+                        }
+                        if ($matricula == 1) {
+                            $valorDaAula = 0;
                         }
                         $escolaridadeAluno = $ResBuscarEscolaridade['nivel'];
                         $valorDaAula = $ResBuscarEscolaridade['valor'] * $tempoDeAula;
@@ -58,14 +66,16 @@ if (isset($_POST['enviar'])) {
                     <?php
                     echo "Valor da Aula: $valorDaAula <br>";
                     echo "Escolaridade: $escolaridadeAluno <br>";
+                    echo "Escolaridade: $respPagamento <br>";
+                    echo "Descrição: $descricaoAula <br>";
 //Agenda por dia, estudar uma forma neste abaixo, criar uma tabela com o dia para armazenar os agendamentos
                     include_once 'pages/extra/criacao_db_e_tabelas_data.php';
 
                     $conexao = mysql_connect(HOST, USER, PASS);
                     $mysql_connect = mysql_select_db(DDB, $conexao);
 
-                    $QrCadastrar = "INSERT INTO agenda_aulas (matricula_aluno,nome_aluno,data,sala,prof,entrada,saida,materia,qtd_hora,valor,pagamento) VALUES ('$matricula','$nomeAluno','$dataAula', '$salaDeAula', '$professor', '$horarioEntrada', '$horarioSaida','$materiaAula','$tempoDeAula','$valorDaAula','$pagamentoAula')";
-                    $cadastrar = mysql_query($QrCadastrar, $db);
+                    $QrCadastrar = "INSERT INTO agenda_aulas (id, matricula_aluno, nome_aluno, responsavel_pagamento, descricao_aula, data, sala, prof, entrada, saida, materia, qtd_hora, valor, pagamento) VALUES (NULL, '$matricula', '$nomeAluno', '$respPagamento', '$descricaoAula', '$dataAula', '$salaDeAula', '$professor', '$horarioEntrada', '$horarioSaida', '$materiaAula', '$tempoDeAula', '$valorDaAula', '$pagamentoAula')";
+                    $cadastrar = mysql_query($QrCadastrar);
 
 
                     if ($cadastrar) {
@@ -99,12 +109,15 @@ if (isset($_POST['enviar'])) {
     <script src="js/ajax/returnHorariosDisp.js"></script>
     <div class="col-md-8 col-md-push-2" style="padding-bottom: 20px;">
         <div class="col-md-12">
-            <h4>Agendamento de Aula</h4>
+            <div class="col-md-12 text-left">
+                <h4 class="col-md-4">Agendamento de Aula</h4>
+                <div class="col-md-8" style="padding-top:7px">
+                    <button type="button" id="sem_matricula" class="btn btn-warning" onclick="returnMatriculaNova();" value="pre_matricula">Fazer Pré-Cadastro</button>
+                    <button type="button" id="com_matricula" class="btn btn-success" onclick="returnMatriculado();" value="matriculado">Matriculado</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
             <hr>
-        </div>
-        <div class="col-md-12">
-            <button type="button" id="sem_matricula" class="btn btn-warning" onclick="returnMatriculaNova();" value="pre_matricula">Fazer Pré-Cadastro</button>
-            <button type="button" id="com_matricula" class="btn btn-success" onclick="returnMatriculado();" value="matriculado">Matriculado</button>
         </div>
         <form action="#" class="inline-form" method="post">
             <div id="returnMatricula">
@@ -199,15 +212,12 @@ if (isset($_POST['enviar'])) {
                     <option value="3">3:00</option>
                 </select>
             </div>
+            <div class="form-group col-md-12">
+                <label for="descricao_aula">Descrição da Aula:</label>
+                <textarea name="descricao_aula" id="descricao_aula" class="form-control" placeholder="Digite uma breve descrição para a aula"></textarea>
+            </div>
             <div class="form-group">
                 <div class="col-md-12"><hr></div>
-                <div class="col-md-4">
-                    <label for="local_da_aula">Local da aula</label>
-                    <select name="local_da_aula" id="local_da_aula" class="form-control">
-                        <option value="0" selected>Escritório</option>
-                        <option value="1">Residência</option>
-                    </select>
-                </div>
                 <div class="col-md-4">
                     <label for="pagamento">Pagamento</label>
                     <select name="pagamento" id="pagamento" class="form-control">
@@ -218,11 +228,11 @@ if (isset($_POST['enviar'])) {
                 <div class="col-md-4">
                     <label for="compartilhar_aula">Compartilhada</label>
                     <select name="compartilhar_aula" id="compartilhar_aula" class="form-control">
-                        <option value="0">Não</option>
+                        <option value="0" selected>Não</option>
                         <option value="1">Sim</option>
                     </select>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <label for="enviar" class="">&nbsp;</label>
                     <button type="submit" name="enviar" class="btn btn-success form-control">Agendar</button>
                 </div>

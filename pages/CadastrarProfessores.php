@@ -16,9 +16,10 @@ if (isset($_POST['cadastrar_professor'])) {
     $CadastroProfessor['dig_agencia_banco_professor'] = $_POST['dig_agencia_banco_professor'];
     $CadastroProfessor['conta_banco_professor'] = $_POST['conta_banco_professor'];
     $CadastroProfessor['valor_hora'] = preg_replace("/[^-0-9\.]/", ".", $_POST['valor_hora']);
+    $CadastroProfessor['valor_hora_res'] = preg_replace("/[^-0-9\.]/", ".", $_POST['valor_hora_res']);
     $CadastroProfessor['dia_pagamento'] = $_POST['dia_pagamento'];
     
-    $QueryCadastrarProfessor = "INSERT INTO professores (nome,materia,telefone_principal,telefone_contato,cep_endereco,endereco_completo,numero_endereco,bairro_endereco,cidade_endereco,estado_endereco,complemento_endereco,banco_professor,agencia_banco_professor,dig_agencia_banco_professor,conta_banco_professor,valor_hora,dia_pagamento)VALUES ('$CadastroProfessor[nome]','$CadastroProfessor[materia_principal]','$CadastroProfessor[telefone_principal]','$CadastroProfessor[telefone_contato]','$CadastroProfessor[cep_endereco]','$CadastroProfessor[endereco_completo]','$CadastroProfessor[numero_endereco]','$CadastroProfessor[bairro_endereco]','$CadastroProfessor[cidade_endereco]','$CadastroProfessor[estado_endereco]','$CadastroProfessor[complemento_endereco]','$CadastroProfessor[banco_prfessor]','$CadastroProfessor[agencia_banco_professor]','$CadastroProfessor[dig_agencia_banco_professor]','$CadastroProfessor[conta_banco_professor]','$CadastroProfessor[valor_hora]','$CadastroProfessor[dia_pagamento]')";
+    $QueryCadastrarProfessor = "INSERT INTO professores (nome,materia,telefone_principal,telefone_contato,cep_endereco,endereco_completo,numero_endereco,bairro_endereco,cidade_endereco,estado_endereco,complemento_endereco,banco_professor,agencia_banco_professor,dig_agencia_banco_professor,conta_banco_professor,valor_hora,valor_hora_res,dia_pagamento)VALUES ('$CadastroProfessor[nome]','$CadastroProfessor[materia_principal]','$CadastroProfessor[telefone_principal]','$CadastroProfessor[telefone_contato]','$CadastroProfessor[cep_endereco]','$CadastroProfessor[endereco_completo]','$CadastroProfessor[numero_endereco]','$CadastroProfessor[bairro_endereco]','$CadastroProfessor[cidade_endereco]','$CadastroProfessor[estado_endereco]','$CadastroProfessor[complemento_endereco]','$CadastroProfessor[banco_prfessor]','$CadastroProfessor[agencia_banco_professor]','$CadastroProfessor[dig_agencia_banco_professor]','$CadastroProfessor[conta_banco_professor]','$CadastroProfessor[valor_hora]','$CadastroProfessor[valor_hora_res]','$CadastroProfessor[dia_pagamento]')";
     $ExeQRCadastrarProfessor = mysql_query($QueryCadastrarProfessor);
     if($ExeQRCadastrarProfessor){
         echo "Cadastrado";
@@ -29,10 +30,11 @@ if (isset($_POST['cadastrar_professor'])) {
 } else {
     ?>
     <script src="js/buscarCEP.js"></script>
-    <section class="col-md-8 col-md-push-2" style="padding-top: 15px; padding-bottom: 15px;">
+    <section class="col-md-8 col-md-push-2" style="padding-top: 0; padding-bottom: 15px;">
         <h3>Cadastro de professores</h3>
         <hr>
         <form action="?acesso=CadastrarProfessores" method="post">
+            <h4>Dados Pessoais</h4>
             <div class="form-group col-md-6">
                 <label for="nome_professor">Nome do Professor:</label>
                 <input type="text" name="nome_professor" id="nome_professor" class="form-control" placeholder="Nome do Professor">
@@ -93,7 +95,9 @@ if (isset($_POST['cadastrar_professor'])) {
                 </div>
             </div>
             <div class="clearfix"></div>
+            <hr>
             <div id="dados-pagamento">
+                <h4>Dados para Pagamento</h4>
                 <div class="form-group col-md-2">
                     <label for="banco_professor">Banco:</label>
                     <select name="banco_professor" id="banco_professor" class="form-control">
@@ -115,9 +119,13 @@ if (isset($_POST['cadastrar_professor'])) {
                     <label for="conta_banco_professor"><abbr title="Inclua o dígito após hífen">Conta:</abbr></label>
                     <input type="number" name="conta_banco_professor" id="conta_banco_professor" class="form-control" placeholder="Ex: 12345-6">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label for="valor_hora">Valor Combinado:</label>
                     <input type="text" name="valor_hora" id="valor_hora" class="form-control" placeholder="Ex: 100">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="valor_hora_res">Valor Residencial:</label>
+                    <input type="text" name="valor_hora_res" id="valor_hora_res" class="form-control" placeholder="Ex: 100">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="dia_pagamento">Data para Pagamento:</label>

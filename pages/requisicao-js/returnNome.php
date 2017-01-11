@@ -34,6 +34,7 @@ if (isset($_GET['SelectNome'])) {
             ?>
             <input type="text" name="nome_aluno" required id="nome_aluno" class="form-control" value="<?php echo $NomeReturn ?>">
             <input type="hidden" name="escolaridade_aluno" value="<?php echo $EscolReturnId?>">
+            <input type="hidden" name="responsavel_pagamento" value="<?php echo $ResultadoNome['responsavel_pagamento']?>">
             <?php
         }
     } else {

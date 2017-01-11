@@ -16,7 +16,7 @@ if (isset($_GET['SalaSelecionada'])) {
         mysql_select_db($DbDiaAula, $conexaoDbMesDia);
         $SelectSalas = "$dataInformadaParaAula.$salaInformada";
         $AlunoInformado = $_SESSION['MATRICULA_ALUNO'];
-        $QueryBuscarHorarioEntrada = "SELECT * FROM $SelectSalas WHERE aluno != '$AlunoInformado'";
+        $QueryBuscarHorarioEntrada = "SELECT * FROM $SelectSalas WHERE aluno != $AlunoInformado";
         $ResBuscarHorarioEntrada = mysql_query($QueryBuscarHorarioEntrada);
         $ContBuscaHorarioEntrada = mysql_affected_rows($conexaoDbMesDia);
         if (mysql_affected_rows($conexaoDbMesDia) > 0) {

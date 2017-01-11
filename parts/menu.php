@@ -105,6 +105,25 @@
                     </ul>
                 </li>
                 <li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;font-size: 18px;">
+                        Financeiro <span class="caret"></span>
+                        <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-adjust"></span>
+                    </a>
+                    <ul class="dropdown-menu forAnimate" role="menu">
+                        <li>
+                            <a href="?acesso=ExibirPagamentosAlunos" class="sub-menu" style="color:#fff">
+                                <span class="glyphicon glyphicon-transfer"> Alunos</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="?acesso=ExibirPagamentosProfessores" class="sub-menu" style="color:#fff">
+                                <span class="glyphicon glyphicon-transfer"> Professores</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="home.php?LogOff" style="color:#fff;font-size: 18px;">
                         Sair<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-off"></span></span>
                     </a>
