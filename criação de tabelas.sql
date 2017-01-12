@@ -5,6 +5,7 @@ CREATE DATABASE contemporaneo DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500
 DROP DATABASE n2yco43511_01_2017;
 DROP TABLES agenda_aulas,alunos,escolaridade_aluno,materias_disponiveis,professores,sala1,sala2,sala3,sala4,sala5,sala6,salas,usuarios,variacao_preco,escolaridade_yoshio;
 /*FIM EXCLUIR*/
+
 /*Tabela ALUNOS */
 CREATE TABLE alunos (
  matricula_aluno int(11) NOT NULL AUTO_INCREMENT,
